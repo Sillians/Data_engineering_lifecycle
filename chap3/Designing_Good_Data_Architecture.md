@@ -150,7 +150,7 @@ Designing “good” data architecture relies on trade-offs between the tight an
             - Look for places in the architecture where you can use a managed service without significant refactoring. In particular, look at caching, messaging, storage, and databases.
             - For higher security, place a network DMZ in front of the application
 
-![image info](chap3/q9UGw.png)
+![n-tier architecture](/chap3/q9UGw.png)
 
 
     - `Monoliths`:
