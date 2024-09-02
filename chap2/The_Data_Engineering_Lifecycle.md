@@ -1,6 +1,6 @@
 ## The Data Engineering Lifecycle
 
-- Generation
+- `Generation`
     - Source Systems: A source system is the origin of the data used in the data engineering lifecycle.
 
     ### Evaluating source systems: Key engineering considerations
@@ -26,7 +26,7 @@
 
 
 
-- Storage
+- `Storage`
     - Storage runs across the entire data engineering lifecycle, often occurring in multiple places in a data pipeline, with storage systems crossing over with source systems, ingestion, transformation, and serving. I
 
     ### Evaluating storage systems: Key engineering considerations
@@ -37,7 +37,7 @@
         - Will downstream users and processes be able to retrieve data in the required service-level agreement (SLA)?
         - Are you capturing metadata about schema evolution, data flows, data lineage, and so forth? Metadata has a significant impact on the utility of data. Meta‐ data represents an investment in the future, dramatically enhancing discoverabil‐ ity and institutional knowledge to streamline future projects and architecture changes.
         - Is this a pure storage solution (object storage), or does it support complex query patterns (i.e., a cloud data warehouse)?
-        - Is the storage system schema-agnostic (object storage)? Flexible schema (Cassan‐ dra)? Enforced schema (a cloud data warehouse)?
+        - Is the storage system schema-agnostic (object storage)? Flexible schema (Cassandra)? Enforced schema (a cloud data warehouse)?
         - How are you tracking master data, golden records data quality, and data lineage for data governance?
         - How are you handling regulatory compliance and data sovereignty? For example, can you store your data in certain geographical locations but not others?
     
@@ -45,7 +45,7 @@
     What type of storage solution should you use? This depends on your use cases, data volumes, frequency of ingestion, format, and size of the data being ingested— essentially, the key considerations listed in the preceding bulleted questions. There is no one-size-fits-all universal storage recommendation. Every storage technology has its trade-offs. Countless varieties of storage technologies exist, and it’s easy to be overwhelmed when deciding the best option for your data architecture.
 
 
-- Ingestion
+- `Ingestion`
     - After you understand the data source, the characteristics of the source system you’re using, and how data is stored, you need to gather the data. The next stage of the data engineering lifecycle is data ingestion from source systems.
 
     ### Key engineering considerations for the ingestion phase
@@ -83,7 +83,7 @@
     - Consider, for example, the extract, transform, load (ETL) process, commonly used in batch-oriented ingestion workflows. ETL’s extract (E) part clarifies that we’re dealing with a pull ingestion model. With streaming ingestion, data bypasses a backend database and is pushed directly to an endpoint, typically with data buffered by an event-streaming platform.
 
 
-- Transformation 
+- `Transformation`
     - The next stage of the data engineering lifecycle is transformation, meaning data needs to be changed from its original form into something useful for downstream use cases. Without proper transformations, data will sit inert, and not be in a useful form for reports, analysis, or ML. Typically, the transformation stage is where data begins to create value for downstream user consumption.
 
     ### Key considerations for the transformation phase
@@ -97,11 +97,11 @@
 
 
 
-- Serving Data
+- `Serving Data`
     - Data serving is perhaps the most exciting part of the data engineering lifecycle. This is where the magic happens. This is where ML engineers can apply the most advanced techniques.
 
     ### Analytics
-    Analytics is the core of most data endeavors. Once your data is stored and trans‐ formed, you’re ready to generate reports or dashboards and do ad hoc analysis on the data.
+    Analytics is the core of most data endeavors. Once your data is stored and transformed, you’re ready to generate reports or dashboards and do ad hoc analysis on the data.
 
     #### Business intelligence
     BI requires using business logic to process raw data. A BI system maintains a repository of business logic and definitions. This business logic is used to query the data warehouse so that reports and dashboards align with business definitions.
@@ -147,7 +147,7 @@ Data management is the development, execution, and supervision of plans, policie
 
     - `Data governance` 
 
-    Data governance is, first and foremost, a data management function to ensure the quality, integrity, security, and usability of the data collected by an organization. Data governance is a foundation for data-driven business practices and a mission- critical part of the data engineering lifecycle. When data governance is practiced well, people, processes, and technologies align to treat data as a key business driver; if data issues occur, they are promptly handled.
+    Data governance is, first and foremost, a data management function to ensure the quality, integrity, security, and usability of the data collected by an organization. Data governance is a foundation for data-driven business practices and a mission-critical part of the data engineering lifecycle. When data governance is practiced well, people, processes, and technologies align to treat data as a key business driver; if data issues occur, they are promptly handled.
 
         - `Discoverability`
 
@@ -208,14 +208,13 @@ Data management is the development, execution, and supervision of plans, policie
     The last several years of data breaches, misinformation, and mishandling of data make one thing clear: data impacts people.
 
 
-
 - `DataOps`
 
-DataOps maps the best practices of Agile methodology, DevOps, and statistical pro‐ cess control (SPC) to data. Whereas DevOps aims to improve the release and quality of software products, DataOps does the same thing for data products.
+DataOps maps the best practices of Agile methodology, DevOps, and statistical process control (SPC) to data. Whereas DevOps aims to improve the release and quality of software products, DataOps does the same thing for data products.
 
-Data products differ from software products because of the way data is used. A soft‐ ware product provides specific functionality and technical features for end users. By contrast, a data product is built around sound business logic and metrics, whose users make decisions or build models that perform automated actions. A data engineer must understand both the technical aspects of building software products and the business logic, quality, and metrics that will create excellent data products.
+Data products differ from software products because of the way data is used. A software product provides specific functionality and technical features for end users. By contrast, a data product is built around sound business logic and metrics, whose users make decisions or build models that perform automated actions. A data engineer must understand both the technical aspects of building software products and the business logic, quality, and metrics that will create excellent data products.
 
-DataOps is a collection of technical practices, workflows, cultural norms, and architec‐ tural patterns that enable:
+DataOps is a collection of technical practices, workflows, cultural norms, and architectural patterns that enable:
     - Rapid innovation and experimentation delivering new insights to customers with increasing velocity
     - Extremely high data quality and very low error rates
     - Collaboration across complex arrays of people, technology, and environments
@@ -223,27 +222,27 @@ DataOps is a collection of technical practices, workflows, cultural norms, and a
 
 
     ### Three Pillars of DataOps
-        - Automation
+        - `Automation`
 
             Automation enables reliability and consistency in the DataOps process and allows data engineers to quickly deploy new product features and improvements to existing workflows. DataOps automation has a similar framework and workflow to DevOps, consisting of change management (environment, code, and data version control), continuous integration/continuous deployment (CI/CD), and configuration as code.
 
-            DataOps practices monitor and maintain the reliability of technology and systems (data pipelines, orchestration, etc.), with the added dimension of check‐ ing for data quality, data/model drift, metadata integrity, and more.
+            DataOps practices monitor and maintain the reliability of technology and systems (data pipelines, orchestration, etc.), with the added dimension of checking for data quality, data/model drift, metadata integrity, and more.
 
             As the organization’s data maturity grows, data engineers will typically adopt an orchestration framework, perhaps Airflow or Dagster. 
 
-        - Observabilty and monitoring
+        - `Observabilty and monitoring`
 
         If you’re not observing and monitoring your data and the systems that produce the data, you’re inevitably going to experience your own data horror story. Observability, monitoring, logging, alerting, and tracing are all critical to getting ahead of any problems along the data engineering lifecycle. We recommend you incorporate SPC to understand whether events being monitored are out of line and which incidents are worth responding to.
 
-        - Incident reporting
+        - `Incident reporting`
 
-        A high-functioning data team using DataOps will be able to ship new data products quickly. But mistakes will inevitably happen. A system may have downtime, a new data model may break downstream reports, an ML model may become stale and provide bad predictions—countless problems can interrupt the data engineering life‐ cycle. Incident response is about using the automation and observability capabilities mentioned previously to rapidly identify root causes of an incident and resolve it as reliably and quickly as possible.
+        A high-functioning data team using DataOps will be able to ship new data products quickly. But mistakes will inevitably happen. A system may have downtime, a new data model may break downstream reports, an ML model may become stale and provide bad predictions—countless problems can interrupt the data engineering lifecycle. Incident response is about using the automation and observability capabilities mentioned previously to rapidly identify root causes of an incident and resolve it as reliably and quickly as possible.
 
         Incident response is as much about retroactively responding to incidents as proactively addressing them before they happen.
 
 
 
-- Data architecture
+- `Data architecture`
 
 A data architecture reflects the current and future state of data systems that support an organization’s long-term data needs and strategy. 
 
@@ -255,11 +254,11 @@ A data engineer should first understand the needs of the business and gather req
 
 
 
-- Orchestration
+- `Orchestration`
 
 Orchestration is the process of coordinating many jobs to run as quickly and efficiently as possible on a scheduled cadence. Orchestration systems also build job history capabilities, visualization, and alerting. Advanced orchestration engines can backfill new DAGs or individual tasks as they are added to a DAG. They also support dependencies over a time range.
 
-At this writing, several nascent open source projects aim to mimic the best elements of Airflow’s core design while improving on it in key areas. Some of the most inter‐ esting examples are Prefect and Dagster, which aim to improve the portability and testability of DAGs to allow engineers to move from local development to production more easily. Argo is an orchestration engine built around Kubernetes primitives; Metaflow is an open source project out of Netflix that aims to improve data science orchestration.
+At this writing, several nascent open source projects aim to mimic the best elements of Airflow’s core design while improving on it in key areas. Some of the most interesting examples are Prefect and Dagster, which aim to improve the portability and testability of DAGs to allow engineers to move from local development to production more easily. Argo is an orchestration engine built around Kubernetes primitives; Metaflow is an open source project out of Netflix that aims to improve data science orchestration.
 
 We must point out that orchestration is strictly a batch concept. The streaming alternative to orchestrated task DAGs is the streaming DAG. Streaming DAGs remain challenging to build and maintain, but next-generation streaming platforms such as Pulsar aim to dramatically reduce the engineering and operational burden.
 
@@ -269,36 +268,36 @@ We must point out that orchestration is strictly a batch concept. The streaming 
 
 
 
-- Software engineering
+- `Software engineering`
 
 Cloud data warehouses support powerful transfor‐ mations using SQL semantics; tools like Spark have become more user-friendly, transitioning away from low-level coding details and toward easy-to-use dataframes. Despite this abstraction, software engineering is still critical to data engineering.
 
     - A few common areas of software engineering that apply to the data engineering lifecycle.
 
-        - Core data processing code
+        - `Core data processing code`
         Though it has become more abstract and easier to manage, core data processing code still needs to be written, and it appears throughout the data engineering lifecycle. Whether in ingestion, transformation, or data serving, data engineers need to be highly proficient and productive in frameworks and languages such as Spark, SQL, or Beam. 
 
-        It’s also imperative that a data engineer understand proper code-testing methodolo‐ gies, such as unit, regression, integration, end-to-end, and smoke.
+        It’s also imperative that a data engineer understand proper code-testing methodologies, such as unit, regression, integration, end-to-end, and smoke.
 
-        - Development of open source frameworks
+        - `Development of open source frameworks`
         Many data engineers are heavily involved in developing open source frameworks. They adopt these frameworks to solve specific problems in the data engineering lifecycle, and then continue developing the framework code to improve the tools for their use cases and contribute back to the community.
 
         A new batch of open source competitors (including Prefect, Dagster, and Metaflow) has sprung up to fix perceived limitations of Airflow, providing better metadata handling, portability, and dependency management. Where the future of orchestration goes is anyone’s guess.
 
-        - Streaming
+        - `Streaming`
         Streaming data processing is inherently more complicated than batch, and the tools and paradigms are arguably less mature. As streaming data becomes more pervasive in every stage of the data engineering lifecycle, data engineers face interesting soft‐ ware engineering problems.
 
         Windowing allows real-time systems to calculate valuable metrics such as trailing statistics. Engineers have many frameworks to choose from, including various function platforms (OpenFaaS, AWS Lambda, Google Cloud Func‐ tions) for handling individual events or dedicated stream processors (Spark, Beam, Flink, or Pulsar) for analyzing streams to support reporting and real-time actions.
 
-        - Infrastructure as code
+        - `Infrastructure as code`
 
         Infrastructure as code (IaC) applies software engineering practices to the configura‐ tion and management of infrastructure. The infrastructure management burden of the big data era has decreased as companies have migrated to managed big data systems—such as Databricks and Amazon Elastic MapReduce (EMR)—and cloud data warehouses. When data engineers have to manage their infrastructure in a cloud environment, they increasingly do this through IaC frameworks rather than manually spinning up instances and installing software. Several general-purpose and cloud- platform-specific frameworks allow automated infrastructure deployment based on a set of specifications. Many of these frameworks can manage cloud services as well as infrastructure. There is also a notion of IaC with containers and Kubernetes, using tools like Helm.
 
-        - Pipelines as code
+        - `Pipelines as code`
 
         Pipelines as code is the core concept of present-day orchestration systems, which touch every stage of the data engineering lifecycle. Data engineers use code (typically Python) to declare data tasks and dependencies among them. The orchestration engine interprets these instructions to run steps using available resources.
 
-        - General-purpose problem solving
+        - `General-purpose problem solving`
 
         In practice, regardless of which high-level tools they adopt, data engineers will run into corner cases throughout the data engineering lifecycle that require them to solve problems outside the boundaries of their chosen tools and to write custom code. They should be proficient in software engineering to understand APIs, pull and transform data, handle exceptions, and so forth.
 

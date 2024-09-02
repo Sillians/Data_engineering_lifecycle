@@ -1,6 +1,6 @@
 ## Data Engineering Described
 
-Data engineering is the development, implementation, and maintenance of systems and processes that take in raw data and produce high-quality, consistent information that supports downstream use cases, such as analysis and machine learning. Data engi‐ neering is the intersection of security, data management, DataOps, data architecture, orchestration, and software engineering. A data engineer manages the data engineering lifecycle, beginning with getting data from source systems and ending with serving data for use cases, such as analysis or machine learning.
+Data engineering is the development, implementation, and maintenance of systems and processes that take in raw data and produce high-quality, consistent information that supports downstream use cases, such as analysis and machine learning. Data engineering is the intersection of security, data management, DataOps, data architecture, orchestration, and software engineering. A data engineer manages the data engineering lifecycle, beginning with getting data from source systems and ending with serving data for use cases, such as analysis or machine learning.
 
 - "A data engineer’s goal is to move fast, get traction, and add value."
 
@@ -19,7 +19,7 @@ Data engineering is the development, implementation, and maintenance of systems 
 - software engineering.
 
 ### Data Maturity Model
-- Starting with Data: Define the right data architecture (usually solo, since a data architect likely isn’t available). This means determining business goals and the competitive advantage you’re aiming to achieve with your data initiative. Work toward a data architec‐ ture that supports these goals.
+- Starting with Data: Define the right data architecture (usually solo, since a data architect likely isn’t available). This means determining business goals and the competitive advantage you’re aiming to achieve with your data initiative. Work toward a data architecture that supports these goals.
 
 - Scaling with Data: 
     - Establish formal data practices
