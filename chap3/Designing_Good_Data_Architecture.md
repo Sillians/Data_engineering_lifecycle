@@ -195,7 +195,7 @@ An event-driven workflow encompasses the ability to create, update, and asynchro
 
     Data marts exist for two reasons. First, a data mart makes data more easily accessible to analysts and report developers. Second, data marts provide an additional stage of transformation beyond that provided by the initial ETL or ELT pipelines.
 
-![Data marts](/chap3/q9UGw.png)
+![Data marts](/chap3/diagram8-1---x----750-376x---.jpg)
 
 
 - `Data Lake`: 
