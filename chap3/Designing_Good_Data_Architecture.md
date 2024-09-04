@@ -136,46 +136,133 @@ On the other end of the spectrum, you have decentralized domains and services th
 
 Designing “good” data architecture relies on trade-offs between the tight and loose coupling of domains and services.
 
-    - `Architecture tiers`: As you develop your architecture, it helps to be aware of architecture tiers. Your architecture has layers—data, application, business logic, presentation, and so forth —and you need to know how to decouple these layers. Because tight coupling of modalities presents obvious vulnerabilities, keep in mind how you structure the layers of your architecture to achieve maximum reliability and flexibility.
+- `Architecture tiers`: As you develop your architecture, it helps to be aware of architecture tiers. Your architecture has layers—data, application, business logic, presentation, and so forth —and you need to know how to decouple these layers. Because tight coupling of modalities presents obvious vulnerabilities, keep in mind how you structure the layers of your architecture to achieve maximum reliability and flexibility.
 
-        - `Single tier`: In a single-tier architecture, your database and application are tightly coupled, residing on a single server. While single-tier architectures are good for prototyping and development, they are not advised for production environments because of the obvious failure risks.
+    - `Single tier`: In a single-tier architecture, your database and application are tightly coupled, residing on a single server. While single-tier architectures are good for prototyping and development, they are not advised for production environments because of the obvious failure risks.
 
-        - `Multi-tier`:
+    - `Multi-tier`: The challenges of a tightly coupled single-tier architecture are solved by decoupling the data and application. A multitier (also known as n-tier) architecture is composed of separate layers: data, application, business logic, presentation, etc. These layers are bottom-up and hierarchical, meaning the lower layer isn’t necessarily dependent on the upper layers; the upper layers depend on the lower layers.
 
+    A common multitier architecture is a three-tier architecture, a widely used client-server design. A three-tier architecture consists of data, application logic, and presentation tiers. Each tier is isolated from the other, allowing for separation of concerns. With a three-tier architecture, you’re free to use whatever technologies you prefer within each tier without the need to be monolithically focused.
 
-            `Additional Considerations`:
-            - N-tier architectures are not restricted to three tiers. For more complex applications, it is common to have more tiers.
-            - Tiers are the boundary of scalability, reliability, and security. Consider having separate tiers for services with different requirements in those areas.
-            - Use virtual machine scale sets for autoscaling.
-            - Look for places in the architecture where you can use a managed service without significant refactoring. In particular, look at caching, messaging, storage, and databases.
-            - For higher security, place a network DMZ in front of the application
-
-            ![n-tier architecture](/chap3/q9UGw.png)
-
-
-    - `Monoliths`:
+        `Additional Considerations`:
+        - N-tier architectures are not restricted to three tiers. For more complex applications, it is common to have more tiers.
+        - Tiers are the boundary of scalability, reliability, and security. Consider having separate tiers for services with different requirements in those areas.
+        - Use virtual machine scale sets for autoscaling.
+        - Look for places in the architecture where you can use a managed service without significant refactoring. In particular, look at caching, messaging, storage, and databases.
+        - For higher security, place a network DMZ in front of the application
 
 
+![n-tier architecture](/chap3/q9UGw.png)
 
-    - `Microservices`: 
 
+- `Monoliths`: The general notion of a monolith includes as much as possible under one roof; in its most extreme version, a monolith consists of a single codebase running on a single machine that provides both the application logic and user interface. 
 
+Coupling within monoliths can be viewed in two ways: technical coupling and domain coupling. Technical coupling refers to architectural tiers, while domain cou‐ pling refers to the way domains are coupled together. A monolith has varying degrees of coupling among technologies and domains. You could have an application with various layers decoupled in a multitier architecture but still share multiple domains.
 
 
 
+- `Microservices`: Microservices architecture comprises separate, decentralized, and loosely coupled services. Each service has a specific function and is decoupled from other services operating within its domain. If one service temporarily goes down, it won’t affect the ability of other services to continue functioning.
 
 
+### Event-Driven Architecture
+
+An event-driven workflow encompasses the ability to create, update, and asynchronously move events across various parts of the data engineering lifecycle. This workflow boils down to three main areas: `event production`, `routing`, and `consumption`. An event must be produced and routed to something that consumes it without tightly coupled dependencies among the `producer`, `event router`, and `consumer`.
+
+### Brownfield Versus Greenfield Projects
+
+- `Brownfield projects`: Brownfield projects often involve refactoring and reorganizing an existing architecture and are constrained by the choices of the present and past. A popular alternative to a direct rewrite is the strangler pattern: new systems slowly and incrementally replace a legacy architecture’s components.20 Eventually, the legacy architecture is completely replaced. The attraction to the strangler pattern is its targeted and surgical approach of deprecating one piece of a system at a time. This allows for flexible and reversible decisions while assessing the impact of the deprecation on dependent systems.
+
+- `Greenfield projects`: a greenfield project allows you to pioneer a fresh start, unconstrained by the history or legacy of a prior architecture. Greenfield projects tend to be easier than brownfield projects, and many data architects and engineers find them more fun! You have the opportunity to try the newest and coolest tools and architectural patterns. 
 
 
+### Examples and Types of Data Architecture
 
 
+- `Data Warehouse`:
+
+ A data warehouse is a central data hub used for reporting and analysis. Data in a data warehouse is typically highly formatted and structured for analytics use cases. It’s among the oldest and most well-established data architectures.
+
+    - organizational data warehouse architecture: The organizational data warehouse architecture organizes data associated with certain business team structures and processes.
+        - Separates online analytical processing (OLAP) from production databases (online trans‐ action processing)
+        - Centralizes and organizes data.
 
 
+    - technical data warehouse architecture: The technical data warehouse architec‐ ture reflects the technical nature of the data warehouse, such as MPP. 
+
+    - The cloud data warehouse: Cloud data warehouses represent a significant evolution of the on-premises data warehouse architecture and have thus led to significant changes to the organiza‐ tional architecture. 
+
+    - Data marts: A data mart is a more refined subset of a warehouse designed to serve analytics and reporting, focused on a single suborganization, department, or line of business; every department has its own data mart, specific to its needs.
+
+    Data marts exist for two reasons. First, a data mart makes data more easily accessible to analysts and report developers. Second, data marts provide an additional stage of transformation beyond that provided by the initial ETL or ELT pipelines.
+
+![Data marts](/chap3/q9UGw.png)
 
 
+- `Data Lake`: 
+
+Instead of imposing tight structural limitations on data, why not simply dump all of your data—structured and unstructured—into a central location? The data lake promised to be a democratizing force, liberating the business to drink from a fountain of limitless data. Data lake allows an immense amount of data of any size and type to be stored.
 
 
+### History of Data Architectures
+
+`Background on Data Warehouses`
+
+Data warehouses have a long history in decision support and business intelligence applications, though were not suited or were expensive for handling unstructured data, semi-structured data, and data with high variety, velocity, and volume.
 
 
+`Emergence of Data Lakes`
 
+Data lakes then emerged to handle raw data in a variety of formats on cheap storage for data science and machine learning, though lacked critical features from the world of data warehouses: they do not support transactions, they do not enforce data quality, and their lack of consistency/isolation makes it almost impossible to mix appends and reads, and batch and streaming jobs.
+
+`Common Two-Tier Data Architecture`
+
+The two-tier architecture requires regular maintenance and often results in data staleness, a significant concern of data analysts and data scientists.
+
+
+### Convergence, Next-Generation Data Lakes, and the Data Platform
+
+Databricks introduced the notion of a data lakehouse. The lakehouse incorporates the controls, data management, and data structures found in a data warehouse while still housing data in object storage and supporting a variety of query and transformation engines. Some examples of data lakehouses include `Amazon Redshift Spectrum` or `Delta Lake`.
+
+A data lakehouse is a new, open data management architecture that combines the flexibility, cost-efficiency, and scale of data lakes with the data management and ACID transactions of data warehouses, enabling business intelligence (BI) and machine learning (ML) on all data.
+
+![Data Lakehouse](/chap3/data-lakehouse-new.png)
+
+
+There are a few key technology advancements that have enabled the data lakehouse:
+
+- metadata layers for data lakes
+- new query engine designs providing high-performance SQL execution on data lakes
+- optimized access for data science and machine learning tools.
+
+The data lakehouse supports atomicity, consistency, isolation, and durability (ACID) transactions, a big departure from the original data lake, where you simply pour in data and never update or delete it. The term data lakehouse suggests a convergence between data lakes and data warehouses.
+
+Instead of choosing between a data lake or data warehouse architecture, future data engineers will have the option to choose a converged data platform based on a variety of factors, including vendor, ecosystem, and relative openness.
+
+
+#### Modern Data Stack
+
+The main objective of the modern data stack is to use cloud-based, plug-and-play, easy-to-use, off-the-shelf components to create a modular and cost-effective data architecture. 
+
+
+#### The Dataflow Model and Unified Batch and Streaming
+
+The core idea in the Dataflow model is to view all data as events, as the aggregation is performed over various types of windows. Ongoing real-time event streams are unbounded data. Data batches are simply bounded event streams, and the boundaries provide a natural window. Engineers can choose from various windows for real-time aggregation, such as sliding or tumbling. Real-time and batch processing happens in the same system using nearly identical code.
+
+
+#### Data Mesh
+
+The data mesh attempts to invert the challenges of centralized data architecture, taking the concepts of domain-driven design (commonly used in software architectures) and applying them to data architecture. A data mesh architecture effectively unites the disparate data sources and links them together through centrally managed data sharing and governance guidelines. 
+
+
+key components of the data mesh:
+
+• Domain-oriented decentralized data ownership and architecture
+• Data as a product
+• Self-serve data infrastructure as a platform
+• Federated computational governance
+
+
+#### Other Data Architecture Examples
+
+Data architectures have countless other variations, such as data fabric, data hub, scaled architecture, metadata-first architecture, event-driven architecture, live data stack, and many more. And new architectures will continue to emerge as practices consolidate and mature, and tooling simplifies and improves. We’ve focused on a handful of the most critical data architecture patterns that are extremely well established, evolving rapidly, or both.
 
