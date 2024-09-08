@@ -11,12 +11,6 @@ In the modern data pipeline, you can extract large amounts of data from multiple
 
 
 
-
-
-
-
-
-
 ### Choosing Technologies Across the Data Engineering Lifecycle
 
 Data Architecture is the high-level design, roadmap, and blueprint of data systems that satisfy the strategic aims for the business. Architecture is the what, why, and when. Tools are used to make the architecture a reality; tools are the how.
