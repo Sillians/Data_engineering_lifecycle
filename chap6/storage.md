@@ -3,7 +3,7 @@
 Data gets stored many times as it moves through the lifecycle. To paraphrase an old saying, it’s storage all the way down. Whether data is needed seconds, minutes, days, months, or years later, it must persist in storage until systems are ready to consume it for further processing and transmission. 
 
 
-![Data engineering lifecycle](/chap5/1_1t2zah1TG5_FCu0nTwkKtg.png)
+![Storage aspect of the Data engineering lifecycle](/chap5/1_1t2zah1TG5_FCu0nTwkKtg.png)
 
 
 The raw ingredients that compose storage systems, including hard drives, solid state drives, and system memory. It’s essential to understand the basic characteristics of physical storage technologies to assess the trade-offs inherent in any storage architecture. The serialization and compression, key software elements of practical storage, and a deeper technical discussion of serialization and compression.
