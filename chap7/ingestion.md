@@ -90,19 +90,90 @@ Another pattern related to pulling is `polling` for data. Polling involves perio
 
 ### Batch Ingestion Considerations
 
+Batch ingestion, which involves processing data in bulk, is often a convenient way to ingest data. This means that data is ingested by taking a subset of data from a source system, based either on a time interval or the size of accumulated data.
+
+- Time-interval batch ingestion is widespread in traditional business ETL for data warehousing. This pattern is often used to process data once a day, overnight during off-hours, to provide daily reporting, but other frequencies can also be used.
+
+- Size-based batch ingestion is quite common when data is moved from a streaming-based system into object storage; ultimately, you must cut the data into discrete blocks for future processing in a data lake. Some size-based ingestion systems can break data into objects based on various criteria, such as the size in bytes of the total number of events.
+
+
+### Some commonly used batch ingestion patterns, include the following:
+
+1. Snapshot or differential extraction: 
+
+Data engineers must choose whether to capture full snapshots of a source system or differential (sometimes called incremental) updates. With full snapshots, engineers grab the entire current state of the source system on each update read. With the differential update pattern, engineers can pull only the updates and changes since the last read from the source system.
+
+While differential updates are ideal for minimizing network traffic and target storage usage, full snapshot reads remain extremely com‐ mon because of their simplicity.
+
+
+2. File-based export and ingestion:
+
+Data is serialized into files in an exchangeable format, and these files are provided to an ingestion system. We consider file-based export to be a push-based ingestion pattern. 
+
+File-based ingestion has several potential advantages over a direct database connec‐ tion approach. It is often undesirable to allow direct access to backend systems for security reasons. With file-based ingestion, export processes are run on the data-source side, giving source system engineers complete control over what data gets exported and how the data is preprocessed. 
 
 
 
+3. ETL versus ELT:
+
+The following are brief definitions of the extract and load parts of ETL and ELT:
+
+- Extract: This means getting data from a source system. While extract seems to imply pulling data, it can also be push based. Extraction may also require reading metadata and schema changes.
+
+- Load: Once data is extracted, it can either be transformed (ETL) before loading it into a storage destination or simply loaded into storage for future transformation. When loading data, you should be mindful of the type of system you’re loading, the schema of the data, and the performance impact of loading.
+
+
+4. Inserts, updates, and batch size:
+
+Batch-oriented systems often perform poorly when users attempt to perform many small-batch operations rather than a smaller number of large operations. For example, while it is common to insert one row at a time in a transactional database, this is a bad pattern for many columnar databases, as it forces the creation of many small, suboptimal files and forces the system to run a high number of create object operations. Running many small in-place update operations is an even bigger problem because it causes the database to scan each existing column file to run the update.
+
+Understand the appropriate update patterns for the database or data store you’re working with. Also, understand that certain technologies are purpose-built for high insert rates. 
 
 
 
+5. Data migration:
+
+Migrating data to a new database or environment is not usually trivial, and data needs to be moved in bulk. Sometimes this means moving data sizes that are hundreds of terabytes or much larger, often involving the migration of specific tables and moving entire databases and systems. 
+
+Data migrations probably aren’t a regular occurrence as a data engineer, but you should be familiar with them. As is often the case for data ingestion, schema manage‐ ment is a crucial consideration. Suppose you’re migrating data from one database system to a different one (say, SQL Server to Snowflake). No matter how closely the two databases resemble each other, subtle differences almost always exist in the way they handle schema. Fortunately, it is generally easy to test ingestion of a sample of data and find schema issues before undertaking a complete table migration.
+
+Be aware that many tools are available to automate various types of data migrations. Especially for large and complex migrations, we suggest looking at these options before doing this manually or writing your own migration solution.
 
 
 
+### Message and Stream Ingestion Considerations
+
+Issues you should consider when ingesting events;
+
+- Schema Evolution: Schema evolution is common when handling event data; fields may be added or removed, or value types might change (say, a string to an integer). Schema evolution can have unintended impacts on your data pipelines and destinations. For example, an IoT device gets a firmware update that adds a new field to the event it transmits, or a third-party API introduces changes to its event payload or countless other scenarios. All of these potentially impact your downstream capabilities.
+
+- Late-Arriving Data: Though you probably prefer all event data to arrive on time, event data might arrive late. A group of events might occur around the same time frame (similar event times), but some might arrive later than others (late ingestion times) because of various circumstances.
+
+- Ordering and Multiple Delivery: Streaming platforms are generally built out of distributed systems, which can cause some complications. Specifically, messages may be delivered out of order and more than once (at-least-once delivery).
+
+- Replay: Replay allows readers to request a range of messages from the history, allowing you to rewind your event history to a particular point in time. Replay is a key capability in many streaming ingestion platforms and is particularly useful when you need to reingest and reprocess data for a specific time range. For example, RabbitMQ typically deletes messages after all subscribers consume them. Kafka, Kinesis, and Pub/Sub all support event retention and replay.
+
+- Time to Live: How long will you preserve your event record? A key parameter is maximum message retention time, also known as the time to live (TTL). TTL is usually a configuration you’ll set for how long you want events to live before they are acknowledged and ingested. Any unacknowledged event that’s not ingested after its TTL expires auto‐ matically disappears. This is helpful to reduce backpressure and unnecessary event volume in your event-ingestion pipeline.
+
+- Message Size: Message size is an easily overlooked issue: you must ensure that the streaming frame‐ work in question can handle the maximum expected message size. Amazon Kinesis supports a maximum message size of 1 MB. Kafka defaults to this maximum size but can be configured for a maximum of 20 MB or more.
+
+- Error Handling and Dead-Letter Queues: Sometimes events aren’t successfully ingested. Perhaps an event is sent to a nonexis‐ tent topic or message queue, the message size may be too large, or the event has expired past its TTL. Events that cannot be ingested need to be rerouted and stored in a separate location called a dead-letter queue.
+
+![Dead-Letter Queue](/chap7/dead-letter-queue.png)
+
+A dead-letter queue segregates problematic events from events that can be accepted by the consumer. If events are not rerouted to a dead-letter queue, these erroneous events risk blocking other messages from being ingested. Data engineers can use a dead-letter queue to diagnose why event ingestions errors occur and solve data pipeline problems, and might be able to reprocess some messages in the queue after fixing the underlying cause of errors.
+
+
+- Consumer Pull and Push: A consumer subscribing to a topic can get events in two ways: push and pull. Kafka and Kinesis support only pull subscriptions. Subscribers read messages from a topic and confirm when they have been processed. In addition to pull subscriptions, Pub/Sub and RabbitMQ support push subscriptions, allowing these services to write messages to a listener.
+
+Pull subscriptions are the default choice for most data engineering applications, but you may want to consider push capabilities for specialized applications.
+
+
+- Location: It is often desirable to integrate streaming across several locations for enhanced redundancy and to consume data close to where it is generated. As a general rule, the closer your ingestion is to where data originates, the better your bandwidth and latency.
 
 
 
-
+### Ways to Ingest Data
 
 
 
